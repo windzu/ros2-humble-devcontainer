@@ -1,0 +1,49 @@
+// .devcontainer/devcontainer.json
+{
+    "name": "ROS 2 Humble",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".",
+        // --- 核心：传递构建参数 ---
+        "args": {
+            // "localEnv:UID:1000" 会尝试读取宿主机的 $UID 环境变量
+            // 如果找不到，就默认使用 1000
+            "USER_UID": "${localEnv:UID:1000}",
+            "USER_GID": "${localEnv:GID:1000}",
+            "USERNAME": "ros"
+        }
+    },
+    "remoteUser": "ros",
+    "workspaceFolder": "/workspace",
+    // 将本地当前文件夹挂载到容器的 /workspace 目录
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+    // 为 VS Code 安装推荐的扩展
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "esbenp.prettier-vscode",
+                "ms-python.black-formatter",
+                "ms-vscode.cpptools",
+                "ms-vscode.cmake-tools",
+                "ms-azuretools.vscode-docker",
+                "dotjoshjohnson.xml",
+                "ranch-hand-robotics.rde-pack",
+                "azurity.pcd-viewer",
+                "davidanson.vscode-markdownlint",
+                "xaver.clang-format",
+                "mine.cpplint"
+            ]
+        }
+    },
+    // 运行参数：使用 host 网络模式，方便 ROS 2 节点间通信
+    "runArgs": [
+        "--gpus=all",
+        "--env=DISPLAY=${env:DISPLAY}",
+        "--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+        "--net=host"
+    ]
+    // 容器创建后执行的命令
+    // "postCreateCommand": "sudo apt-get update && sudo rosdep init && rosdep update && echo \"source /opt/ros/humble/setup.bash\" >> ~/.bashrc"
+}
