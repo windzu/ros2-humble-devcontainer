@@ -17,6 +17,13 @@
     "workspaceFolder": "/workspace",
     // 将本地当前文件夹挂载到容器的 /workspace 目录
     "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "installOhMyZsh": true,
+            "upgradePackages": true
+        }
+    },
     // 为 VS Code 安装推荐的扩展
     "customizations": {
         "vscode": {
