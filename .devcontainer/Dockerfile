@@ -43,6 +43,8 @@ RUN apt-get update && apt-get install -y \
     && rm /etc/apt/apt.conf.d/docker-clean
 
 # 其他常用开发工具(根据需要添加)
+RUN pip3 install -U \
+    black
 
 
 # --- 创建非 root 用户 (关键部分) ---
