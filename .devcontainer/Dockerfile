@@ -46,6 +46,11 @@ RUN apt-get update && apt-get install -y \
 RUN pip3 install -U \
     black
 
+# 安装 ROS 2 工具
+RUN apt-get update && apt-get install -y \
+    ros-humble-foxglove-bridge \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm /etc/apt/apt.conf.d/docker-clean
 
 # --- 创建非 root 用户 (关键部分) ---
 # 接收来自 devcontainer.json 的构建参数
