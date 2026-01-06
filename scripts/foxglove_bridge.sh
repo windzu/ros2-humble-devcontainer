@@ -1,0 +1,1 @@
+ros2 run foxglove_bridge foxglove_bridge --ros-args -p address:=0.0.0.0 -p port:=8765
